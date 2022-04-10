@@ -1,0 +1,138 @@
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "Container",
+            "style": "emphasis",
+            "items": [
+                {
+                    "type": "ColumnSet",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    "size": "large",
+                                    "weight": "bolder",
+                                    "text": "**Aprovação de Release**"
+                                }
+                            ],
+                            "width": "stretch"
+                        },
+                        {
+                            "type": "Column",
+                            "items": [
+                                {
+                                    "type": "Image",
+                                    "url": "data:image/png;base64,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",
+                                    "altText": "Pendente",
+                                    "height": "30px"
+                                }
+                            ],
+                            "width": "auto"
+                        }
+                    ]
+                }
+            ],
+            "bleed": true
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "ColumnSet",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    "size": "ExtraLarge",
+                                    "text": "${project}",
+                                    "wrap": true
+                                },
+                                {
+                                    "type": "TextBlock",
+                                    "spacing": "Small",
+                                    "size": "Small",
+                                    "weight": "Bolder",
+                                    "color": "Accent",
+                                    "text": "[Release Notes: ${ref}](${releasenotes})"
+                                }
+                            ],
+                            "width": "stretch"
+                        }
+                    ]
+                },
+                {
+                    "type": "FactSet",
+                    "spacing": "Large",
+                    "facts": [
+                        {
+                            "title": "Submetido por",
+                            "value": "**${committer_name}**\n\n ${committer_email} "
+                        },
+                        {
+                            "title": "Enviado em",
+                            "value": "${formatDateTime(created_at, 'dd-MM-yyyy')}"
+                        },
+                        {
+                            "title": "Status",
+                            "value": "Pendente"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "title": "Aprovar",
+                    "data": {
+                        "msteams": {
+                            "type": "messageBack",
+                            "text": "{\"action\": \"play\"}",
+                            "value": "{\"project\": \"${project}\",\"ref\": \"${ref}\",\"project_id\": \"${project_id}\",\"job_id\": \"${job_id}\"}"
+                        }
+                    }
+                },
+                {
+                    "type": "Action.ShowCard",
+                    "title": "Rejeitar",
+                    "style": "destructive",
+                    "card": {
+                        "type": "AdaptiveCard",
+                        "body": [
+                            {
+                                "type": "Input.Text",
+                                "id": "RejectCommentID",
+                                "placeholder": "Por favor especifique um motivo para a rejeição.",
+                                "isMultiline": true
+                            }
+                        ],
+                        "actions": [
+                            {
+                                "type": "Action.Submit",
+                                "title": "Enviar",
+                                "data": {
+                                    "msteams": {
+                                        "type": "messageBack",
+                                        "text": "{\"action\": \"cancel\"}",
+                                        "value": "{\"project\": \"${project}\",\"ref\": \"${ref}\",\"project_id\": \"${project_id}\",\"job_id\": \"${job_id}\"}"
+                                    }
+                                }
+                            }
+                        ],
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+                    }
+                }
+            ]
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.2",
+    "fallbackText": "This card requires Adaptive Cards v1.2 support to be rendered properly."
+}

@@ -1,0 +1,72 @@
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "Container",
+            "style": "emphasis",
+            "items": [
+                {
+                    "type": "ColumnSet",
+                    "columns": [ 
+                        {
+                            "type": "Column",
+                            "items": [
+                                {
+                                    "type": "Image",
+                                    "url": "https://img2.gratispng.com/20180606/sii/kisspng-grevimiz-vine-point-of-sale-restaurant-food-broc-done-5b18a0b12ab782.719004781528340657175.jpg",
+                                    "altText": "Done",
+                                    "height": "50px"
+                                }
+                            ],
+                            "width": "stretch"
+                        }
+                    ]
+                }
+            ],
+            "bleed": true
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "ColumnSet",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    "size": "ExtraLarge",
+                                    "text": "${project}",
+                                    "wrap": true
+                                },
+                                {
+                                    "type": "TextBlock",
+                                    "spacing": "Small",
+                                    "size": "Small",
+                                    "weight": "Bolder",
+                                    "color": "Accent",
+                                    "text": "[Release Notes: ${ref}](${releasenotes})"
+                                }
+                            ],
+                            "width": "stretch"
+                        }
+                    ]
+                },
+                {
+                    "type": "FactSet",
+                    "spacing": "Large",
+                    "facts": [
+                        {
+                            "title": "Status:",
+                            "value": "concluído"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.2",
+    "fallbackText": "This card requires Adaptive Cards v1.2 support to be rendered properly."
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.5/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.5",
+  "version": "1.0.0",
+  "id": "08178014-5b97-4cab-b479-f013239138ca",
+  "packageName": "com.teams.sample.teamsconversationbot",
+  "developer": {
+    "name": "Cloud Devops Gerdau",
+    "websiteUrl": "https://www.microsoft.com",
+    "privacyUrl": "https://www.teams.com/privacy",
+    "termsOfUseUrl": "https://www.teams.com/termsofuser"
+  },
+  "icons": {
+    "outline": "icon-outline.png",
+    "color": "icon-color.png"
+  },
+  "name": {
+    "short": "DevopsBotGerdau",
+    "full": "DevopsBotGerdau"
+  },
+  "description": {
+    "short": "ALM/Devops Stuff",
+    "full": "ALM/Devops Stuff"
+  },
+  "accentColor": "#FFFFFF",
+  "bots": [
+    {
+      "botId": "08178014-5b97-4cab-b479-f013239138ca",
+      "scopes": [
+        "personal",
+        "groupchat",
+        "team"
+      ],
+      "supportsFiles": false,
+      "isNotificationOnly": false	  
+	}
+  ],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "validDomains": []
+}

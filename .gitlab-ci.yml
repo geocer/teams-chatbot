@@ -1,0 +1,87 @@
+stages:
+  - build
+  - sonarqb
+  - deploy_dev
+  - deploy_hom
+  - deploy_hotfix
+  - deploy_prd
+
+build:
+  stage: build
+  image: ebits/openshift-client
+  before_script:
+    - oc login $OPENSHIFT_SERVER --token=$OPENSHIFT_TOKEN > /dev/null 2>&1
+    - oc project devops-tools > /dev/null 2>&1
+  script:
+    - oc start-build ${BUILD_NAME}-builder --follow || sleep 3s
+  artifacts:
+    paths:
+      - params.*
+  only:
+    - develop
+    - hotfix
+
+sonarqb:
+  stage: build
+  image: docker-registry.default.svc:5000/devops-tools/sonar-scanner-cli-docker:latest
+  script:
+    - sonar-scanner -Dsonar.host.url=http://sonarqube:9000
+  only:
+    - develop
+    - hotfix
+
+deploy_dev:
+  stage: deploy_dev
+  image: ebits/openshift-client
+  dependencies:
+    - build
+  before_script:
+    - oc login "$OPENSHIFT_SERVER" --token="$OPENSHIFT_TOKEN" > /dev/null 2>&1
+  script:
+    - oc tag devops-tools/${BUILD_NAME}-builder:latest devops-tools/${BUILD_NAME}-builder:${CI_COMMIT_SHA}
+    - oc rollout latest dc/$APP -n devops-tools
+    - oc rollout status dc/$APP -n devops-tools
+  only:
+    - develop
+    
+deploy_hom:
+  stage: deploy_hom
+  image: ebits/openshift-client
+  before_script:
+    - oc login "$OPENSHIFT_SERVER" --token="$OPENSHIFT_TOKEN" > /dev/null 2>&1
+  script:
+    - oc tag devops-tools/${BUILD_NAME}-runtime:latest devops-tools/${BUILD_NAME}-runtime:rc-${CI_COMMIT_SHA}
+    - oc tag devops-tools/${BUILD_NAME}-runtime:latest devops-tools/${BUILD_NAME}-runtime:rc-latest
+    - oc create configmap ${APP} --from-env-file=params.qa -o yaml --dry-run | oc replace --force -f -
+    - oc rollout latest dc/$APP -n ${CI_PROJECT_NAMESPACE}-internal-qa
+    - oc rollout status dc/$APP -n ${CI_PROJECT_NAMESPACE}-internal-qa
+  only:
+    - release
+    
+deploy_hotfix:
+  stage: deploy_hotfix
+  image: ebits/openshift-client
+  dependencies:
+    - build
+  before_script:
+    - oc login "$OPENSHIFT_SERVER" --token="$OPENSHIFT_TOKEN" > /dev/null 2>&1
+  script:
+    - oc tag devops-tools/${BUILD_NAME}-runtime:latest devops-tools/${BUILD_NAME}-runtime:${CI_COMMIT_SHA}
+    - oc create configmap ${APP} --from-env-file=params.dev -o yaml --dry-run | oc replace --force -f -
+    - oc rollout latest dc/$APP -n ${CI_PROJECT_NAMESPACE}-internal-dev
+    - oc rollout status dc/$APP -n ${CI_PROJECT_NAMESPACE}-internal-dev
+  only:
+    - hotfix
+
+deploy_prd:
+  stage: deploy_prd
+  image: ebits/openshift-client
+  before_script:
+    - oc login "$OPENSHIFT_SERVER" --token="$OPENSHIFT_TOKEN" > /dev/null 2>&1
+  script:
+    - oc tag devops-tools/${BUILD_NAME}-runtime:rc-latest ${CI_PROJECT_NAMESPACE}/${BUILD_NAME}-runtime:${CI_COMMIT_TAG}
+    - oc create configmap ${APP} --from-env-file=params.prd -o yaml --dry-run | oc replace --force -f -
+    - oc rollout latest dc/$APP -n ${CI_PROJECT_NAMESPACE}-internal
+    - oc rollout status dc/$APP -n ${CI_PROJECT_NAMESPACE}-internal
+  only:
+    - master

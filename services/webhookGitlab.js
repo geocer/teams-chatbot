@@ -4,10 +4,10 @@ const logger = require('../metrics/logger');
 async function WebHookCD(context, action) {
 
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-    const auth = process.env.CD_AUTH || "Sz1D4yWrmK4yNy5mtQ9w";
-    const url_cd = process.env.CD_URI || "https://gitlab.gerdau.digital/api/v4/projects";
+    const auth = process.env.CD_AUTH || "";
+    const url_cd = process.env.CD_URI || "https:///api/v4/projects";
     
-    //curl -X PUT -d "bar" -H "PRIVATE-TOKEN: 9koXpg98eAheJpvBs5tK" "https://gitlab.example.com/api/v4/settings/ci/variables/FOO"
+    //curl -X PUT -d "bar" -H "PRIVATE-TOKEN: " "https://gitlab.example.com/api/v4/settings/ci/variables/FOO"
     const options = {
         method: 'POST',
         url: `${ url_cd }/${ context.project_id }/jobs/${ context.job_id }/${ action } `,
